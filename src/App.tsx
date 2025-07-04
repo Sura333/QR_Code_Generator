@@ -20,27 +20,44 @@ function App() {
     }
   };
 
-  // Share via Web Share API (if supported)
+  // Share via Web Share API (if supported) and copy to clipboard
   const handleShare = async () => {
-    if (navigator.canShare() && qrRef.current) {
+    if (qrRef.current) {
       const canvas = await html2canvas(qrRef.current);
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
-
-        const file = new File([blob], "qr-code.png", { type: "image/png" });
-
-        try {
-          await navigator.share({
-            title: "QR Code",
-            text: "Here is my QR code!",
-            files: [file],
-          });
-        } catch (err) {
-          alert("Sharing failed or canceled.");
-        }
-      });
+      // Copy image to clipboard
+      if (navigator.clipboard && window.ClipboardItem) {
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+          try {
+            await navigator.clipboard.write([
+              new window.ClipboardItem({ "image/png": blob }),
+            ]);
+            alert("QR code image copied to clipboard!");
+          } catch (err) {
+            alert("Failed to copy image to clipboard.");
+          }
+        });
+      } else {
+        alert("Clipboard image copy not supported in this browser.");
+      }
+      // Optionally, keep the Web Share API functionality
+      if (navigator.canShare && navigator.canShare({ files: [] })) {
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+          const file = new File([blob], "qr-code.png", { type: "image/png" });
+          try {
+            await navigator.share({
+              title: "QR Code",
+              text: "Here is my QR code!",
+              files: [file],
+            });
+          } catch (err) {
+            // Sharing failed or canceled
+          }
+        });
+      }
     } else {
-      alert("Web Share API is not supported on this browser.");
+      alert("QR code not available.");
     }
   };
 
