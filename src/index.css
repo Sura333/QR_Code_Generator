@@ -1,79 +1,207 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* --- CHANGES START HERE --- */
-  color: red; /* All text will now be red */
-  background-color: white; /* The main background will now be white */
-  /* --- CHANGES END HERE --- */
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: red; /* Links will also be red */
-  text-decoration: inherit;
-}
-a:hover {
-  color: darkred; /* Darker red on link hover for slight variation */
-}
-
 body {
-  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f8ff;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+  margin: 0;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 30px;
+  max-width: 550px;
+  width: 90%;
+  background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.container:hover {
+    transform: translateY(-5px);
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  color: #6a0572;
+  margin-bottom: 25px;
+  font-size: 2.5em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+input[type="text"] {
+  width: 90%;
+  max-width: 400px;
+  padding: 12px 15px;
+  border: 2px solid #88d498;
+  border-radius: 8px;
+  font-size: 1.1em;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+.logo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px dashed #a77d9c;
+  border-radius: 10px;
+  background-color: #fbf5fc;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.logo-upload label {
+  font-weight: 600;
+  color: #4b0082;
+  font-size: 1.1em;
+}
+
+input[type="file"] {
+  display: block;
+  margin-top: 5px;
+}
+
+.logo-preview {
+  max-width: 120px;
+  max-height: 120px;
+  border: 3px solid #ffcc80;
+  padding: 5px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-box {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #ff6f61;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 15px auto;
+}
+
+.qr-box svg {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.qr-logo {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 7px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  object-fit: contain;
+  z-index: 10;
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(1.03); }
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a; /* Kept dark for contrast against white background */
+  padding: 12px 25px;
+  margin-top: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 25px;
   cursor: pointer;
-  transition: border-color 0.25s;
-  color: white; /* Ensuring button text is visible, can also be red if preferred against dark button */
-}
-button:hover {
-  border-color: red; /* Button border turns red on hover */
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto red; /* Button outline is red on focus */
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* This media query handles light mode preferences. Updated to maintain consistency. */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: red; /* Ensure text remains red in light mode preference */
-    background-color: white; /* Ensure background remains white in light mode preference */
-  }
-  a:hover {
-    color: darkred; /* Link hover remains dark red in light mode preference */
-  }
-  button {
-    background-color: #f0f0f0; /* Lighter button background in light mode */
-    color: red; /* Ensure button text is red in light mode */
-  }
-  button:hover {
-    border-color: red; /* Button hover border red in light mode */
-  }
-  button:focus,
-  button:focus-visible {
-    outline: 4px auto red; /* Button focus outline red in light mode */
-  }
+button:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
 }
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container > div:has(button) {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.qr-box > div {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .container {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  input[type="text"] {
+    font-size: 1em;
+  }
+
+  button {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+
+  .qr-box {
+    width: 220px;
+    height: 220px;
+    padding: 10px;
+  }
+
+  .qr-logo {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+  }
