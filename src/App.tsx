@@ -1,22 +1,18 @@
-import { useRef, useState, useEffect } from "react";
-import type { ChangeEvent } from "react";
+import { useRef, useState, ChangeEvent, useEffect } from "react";
 import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 import "./App.css";
 
 function App() {
   const [text, setText] = useState<string>("");
-  const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const qrRef = useRef<HTMLDivElement>(null);
 
   const handleLogoChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setLogoFile(file);
       setLogoPreview(URL.createObjectURL(file));
     } else {
-      setLogoFile(null);
       setLogoPreview(null);
     }
   };
