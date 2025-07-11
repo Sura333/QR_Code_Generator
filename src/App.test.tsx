@@ -20,9 +20,13 @@ describe('App', () => {
     render(<App />);
     const input = screen.getByPlaceholderText('Enter text or URL');
     fireEvent.change(input, { target: { value: 'https://example.com' } });
-    expect(screen.getByText('Download')).toBeInTheDocument();
-    expect(screen.getByText('Share')).toBeInTheDocument();
-    expect(screen.getByText('Download').closest('button')).toBeInTheDocument();
-    expect(screen.getByText('Share').closest('button')).toBeInTheDocument();
+    //expect(screen.getByText('Download')).toBeInTheDocument();
+    expect(screen.getByText('Share QR Code')).toBeInTheDocument();
+    //expect(screen.getByText('Download').closest('button')).toBeInTheDocument();
+    expect(screen.getByText('Download QR Code')).toBeInTheDocument();
+    expect(screen.getByText(/Download/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Download QR Code' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Download/i })).toBeInTheDocument();
+    //expect(screen.getByText('Share').closest('button')).toBeInTheDocument();
   });
 });
