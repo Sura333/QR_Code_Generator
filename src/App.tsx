@@ -1,16 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import type { ChangeEvent } from "react";
 import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 import "./App.css";
 
 function App() {
-  const [text, setText] = useState("");
-  const [logoFile, setLogoFile] = useState(null);
-  const [logoPreview, setLogoPreview] = useState(null);
-  const qrRef = useRef(null);
+  const [text, setText] = useState<string>("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const qrRef = useRef<HTMLDivElement>(null);
 
-  const handleLogoChange = (event) => {
-    const file = event.target.files[0];
+  const handleLogoChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
       setLogoFile(file);
       setLogoPreview(URL.createObjectURL(file));
@@ -19,6 +20,14 @@ function App() {
       setLogoPreview(null);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (logoPreview) {
+        URL.revokeObjectURL(logoPreview);
+      }
+    };
+  }, [logoPreview]);
 
   const handleDownload = async () => {
     if (qrRef.current) {
@@ -39,21 +48,24 @@ function App() {
       const canvas = await html2canvas(qrRef.current, {
         useCORS: true,
       });
+
       if (navigator.clipboard && window.ClipboardItem) {
         canvas.toBlob(async (blob) => {
           if (!blob) return;
           try {
             await navigator.clipboard.write([
-              new window.ClipboardItem({ "image/png": blob }),
+              new window.ClipboardItem({ "image/png": blob as Blob }),
             ]);
             alert("QR code image copied to clipboard!");
           } catch (err) {
+            console.error("Failed to copy image to clipboard:", err);
             alert("Failed to copy image to clipboard.");
           }
         });
       } else {
         alert("Clipboard image copy not supported in this browser.");
       }
+
       if (navigator.canShare && navigator.canShare({ files: [] })) {
         canvas.toBlob(async (blob) => {
           if (!blob) return;
@@ -65,7 +77,7 @@ function App() {
               files: [file],
             });
           } catch (err) {
-            // Sharing failed or canceled
+            console.error("Web Share API failed or was canceled:", err);
           }
         });
       }
