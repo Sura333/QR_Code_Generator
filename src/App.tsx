@@ -1,4 +1,5 @@
-import { useRef, useState, ChangeEvent, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
+import type { ChangeEvent } from "react";
 import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 import "./App.css";
