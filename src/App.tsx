@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const [text, setText] = useState<string>("");
-  const [logoFile, setLogoFile] = useState<File | null>(null);
+  //const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const qrRef = useRef<HTMLDivElement>(null);
 
