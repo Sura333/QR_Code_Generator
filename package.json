@@ -1,7 +1,9 @@
 {
   "name": "qr_code_generator",
-  "author": "Kirakin <kirakingk19@gmail.com>"
-  "author": "Sura333 <suraphelnigussie5@gmail.com>"
+  "author": "Sura333 <suraphelnigussie5@gmail.com>",
+  "contributors": [
+    "Kirakin <kirakingk19@gmail.com>"
+],
   "private": true,
   "version": "0.0.0",
   "type": "module",
